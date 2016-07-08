@@ -12,13 +12,21 @@ args = parser.parse_args()
 
 def __execute_command():
     # connection socket
+
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client.connect((args.host, args.port))
+
+    try:
+        client.connect((args.host, args.port))
+    except socket.error as msg:
+        print "Error in sockect connection %s" % str(msg)
+        exit()
 
     print("Write command execute: ")
     command = raw_input(prompt)
-    print(client.send(command))
+    client.send(command)
     response = client.recv(4096)
+    if response is None:
+        print "[Server] without response"
     print response
     client.close()
 
@@ -27,7 +35,7 @@ prompt = '> '
 
 __execute_command()
 
-while True:
+while 1:
     print("Execute other command ?")
     print ("Yes or Not ? (Y/N)")
     confirmation = raw_input(prompt)
