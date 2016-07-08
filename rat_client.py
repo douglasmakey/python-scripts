@@ -1,4 +1,4 @@
-# RAT client python
+# Rat shell control - client python
 import socket
 
 import argparse
@@ -32,7 +32,7 @@ while True:
     print ("Yes or Not ? (Y/N)")
     confirmation = raw_input(prompt)
     print confirmation
-    if str(confirmation) == 'Y':
+    if str(confirmation) in ['Y', 'y', 'yes', 'YES', 'Yes']:
         __execute_command()
     else:
         exit()
